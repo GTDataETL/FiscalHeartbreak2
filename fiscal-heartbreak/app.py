@@ -118,6 +118,93 @@ def MaritalStatusAPI(arg_year=None):
 
     return jsonify(MaritalJSON)
 
+@app.route("/api/DTI")
+@app.route("/api/DTI/<arg_year>")
+def DTI_API(arg_year=None):
+    """Return a list of all Debt to Income records
+       Optional Argument: Year for which data is requested"""
+
+    session = Session(engine)
+    results = []
+
+    if (arg_year == None):
+        # Query all county DTI entries
+        results = session.query(FiscalHeartbreak_tbl).all()
+    else:
+        # Query county DTI in the selected year
+        results = session.query(FiscalHeartbreak_tbl).filter(FiscalHeartbreak_tbl.Year == arg_year).all()
+
+    # initialize dict to return
+    DTI_JSON = {}
+
+    for record in results:
+
+        # DEBUG
+    #    print(f'{record.Year} | {record.CountyName} | {record.StateName} | {record.DtoI_low} | {record.DtoI_high}')
+        
+        # if county not in output JSON yet, initialize new output record
+       # countyState = record.CountyName + "|" + record.StateName
+        if record.FIPS not in DTI_JSON.keys():
+            DTI_JSON[record.FIPS] = {
+                "FIPS": record.FIPS,
+                "County": record.CountyName,
+                "State": record.StateName,
+                "Years": {}
+            }
+
+        #now that we know we have an existing record in output JSON, add stats for current year
+        DTI_JSON[record.FIPS]["Years"][record.Year] = {
+            "DtoI_low": record.DtoI_low,
+            "DtoI_high": record.DtoI_high
+        }
+
+    return jsonify(DTI_JSON)
+
+@app.route("/api/fiscal-heartbreak")
+@app.route("/api/fiscal-heartbreak/<arg_year>")
+def FiscalHeartbreakAPI(arg_year=None):
+    """Return a list of all records
+       Optional Argument: Year for which data is requested"""
+
+    session = Session(engine)
+    results = []
+
+    if (arg_year == None):
+        # Query all county entries
+        results = session.query(FiscalHeartbreak_tbl).all()
+    else:
+        # Query county marital status in the selected year
+        results = session.query(FiscalHeartbreak_tbl).filter(FiscalHeartbreak_tbl.Year == arg_year).all()
+
+    # initialize dict to return
+    outputJSON = {}
+
+    for record in results:
+
+        # DEBUG
+    #    print(f'{record.Year} | {record.CountyName} | {record.StateName} | {record.DivorcedPct} | {record.DivorcedError} | {record.DtoI_low} | {record.DtoI_high}')
+        
+        # if county not in output JSON yet, initialize new output record
+       # countyState = record.CountyName + "|" + record.StateName
+        if record.FIPS not in outputJSON.keys():
+            outputJSON[record.FIPS] = {
+                "FIPS": record.FIPS,
+                "County": record.CountyName,
+                "State": record.StateName,
+                "Years": {}
+            }
+
+        #now that we know we have an existing record in output JSON, add stats for current year
+        outputJSON[record.FIPS]["Years"][record.Year] = {
+            "DivorcedPct": record.DivorcedPct,
+            "DivorcedError": record.DivorcedError,
+            "DtoI_low": record.DtoI_low,
+            "DtoI_high": record.DtoI_high
+        }
+
+    return jsonify(outputJSON)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
