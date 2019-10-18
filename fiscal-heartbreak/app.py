@@ -3,12 +3,14 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify
+import os
 
 
 #################################################
 # Database Reflection
 #################################################
-engine = create_engine("sqlite:///../db/fiscal-heartbreak.sqlite")
+db_url = os.environ.get('DATABASE_URL', '') or "sqlite:///../db/fiscal-heartbreak-slim.sqlite"
+engine = create_engine(db_url)
 
 # reflect an existing database into a new model
 Base = automap_base()
@@ -16,12 +18,12 @@ Base = automap_base()
 # reflect the tables
 Base.prepare(engine, reflect=True)
 
-# Save reference to the table
-DTI = Base.classes.DebtToIncomeRatiosByYear
-MaritalStatus = Base.classes.MaritalStatus
-
 #DEBUG
 print(Base.classes.keys())
+
+# Save reference to the table
+FiscalHeartbreak_tbl = Base.classes.fiscal_heartbreak_all
+
 
 #################################################
 # Flask Setup
@@ -79,10 +81,10 @@ def MaritalStatusAPI(arg_year=None):
 
     if (arg_year == None):
         # Query all county marital status entries
-        results = session.query(MaritalStatus).all()
+        results = session.query(FiscalHeartbreak_tbl).all()
     else:
         # Query county marital status in the selected year
-        results = session.query(MaritalStatus).filter(MaritalStatus.Year == arg_year).all()
+        results = session.query(FiscalHeartbreak_tbl).filter(FiscalHeartbreak_tbl.Year == arg_year).all()
 
     # initialize dict to return
     MaritalJSON = {}
@@ -93,16 +95,17 @@ def MaritalStatusAPI(arg_year=None):
     #    print(f'{record.Year} | {record.CountyName} | {record.StateName} | {record.DivorcedPct} | {record.DivorcedError}')
         
         # if county not in output JSON yet, initialize new output record
-        countyState = record.CountyName + "|" + record.StateName
-        if countyState not in MaritalJSON.keys():
-            MaritalJSON[countyState] = {
+       # countyState = record.CountyName + "|" + record.StateName
+        if record.FIPS not in MaritalJSON.keys():
+            MaritalJSON[record.FIPS] = {
+                "FIPS": record.FIPS,
                 "County": record.CountyName,
                 "State": record.StateName,
                 "Years": {}
             }
 
         #now that we know we have an existing record in output JSON, add stats for current year
-        MaritalJSON[countyState]["Years"][record.Year] = {
+        MaritalJSON[record.FIPS]["Years"][record.Year] = {
             "DivorcedPct": record.DivorcedPct,
             "DivorcedError": record.DivorcedError
         }
