@@ -9,6 +9,9 @@ import os
 #################################################
 # Database Reflection
 #################################################
+print("Starting...")
+print(f"Database URL: {os.environ.get('DATABASE_URL', '') or 'sqlite:///../db/fiscal-heartbreak-slim.sqlite'}")
+
 db_url = os.environ.get('DATABASE_URL', '') or "sqlite:///../db/fiscal-heartbreak-slim.sqlite"
 engine = create_engine(db_url)
 
