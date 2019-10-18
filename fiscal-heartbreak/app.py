@@ -4,13 +4,16 @@ from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify
 import os
+import sys
 
 
 #################################################
 # Database Reflection
 #################################################
 print("Starting...")
+print(f"DATABASE_URL: {os.environ.get('DATABASE_URL', '') }")
 print(f"Database URL: {os.environ.get('DATABASE_URL', '') or 'sqlite:///../db/fiscal-heartbreak-slim.sqlite'}")
+sys.stdout.flush()
 
 db_url = os.environ.get('DATABASE_URL', '') or "sqlite:///../db/fiscal-heartbreak-slim.sqlite"
 engine = create_engine(db_url)
