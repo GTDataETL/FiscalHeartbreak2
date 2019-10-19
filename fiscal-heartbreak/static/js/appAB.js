@@ -1,6 +1,6 @@
 
 /* global Plotly */
-var url =`/api/MaritalStatus/county/1003`;
+var url =`/api/MaritalStatus/county/1005`;
 
 /**
  * Helper function to select stock data
@@ -44,14 +44,16 @@ function buildPlot() {
     var data = [trace1];
 
     var layout = {
-      title: `County Divorce Rates`,
-      xaxis: {
-        autotick: "true",
-      },
+      title: `${county} Divorce Rates`,
 
+      xaxis: {
+        autotick: false,
+        tick0: 2015,
+        dtick: 1,
+      },
       yaxis: {
         autorange: true,
-        type: "linear"
+        type: "linear",
       }
     };
 
