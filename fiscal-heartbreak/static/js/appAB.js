@@ -46,8 +46,9 @@ function buildPlot() {
     var layout = {
       title: `County Divorce Rates`,
       xaxis: {
-        autotick: "true"
+        autotick: "true",
       },
+      
       yaxis: {
         autorange: true,
         type: "linear"
@@ -55,6 +56,7 @@ function buildPlot() {
     };
 
     Plotly.newPlot("plot", data, layout);
+    
 
   });
 }
