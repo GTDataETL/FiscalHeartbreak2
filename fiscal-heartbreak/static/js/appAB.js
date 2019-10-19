@@ -1,6 +1,6 @@
 
 /* global Plotly */
-var url =`/api/MaritalStatus`;
+var url =`/api/MaritalStatus/county/1003`;
 
 /**
  * Helper function to select stock data
@@ -24,12 +24,12 @@ function buildPlot() {
   d3.json(url).then(function(data) {
 
     // Grab values from the data json object to build the plots
-    var county = data[1003].County;
-    var state = data[1003].State;
-    var year = data[1003].Years;
-    var FIPS = data[1003].FIPS;
-    var div_error = data[1003].DivorcedError;
-    var div_pct = data[1003].DivorcedPct;
+    var county = data.County;
+    var state = data.State;
+    var year = data.Years;
+    var FIPS = data.FIPS;
+    var div_error = data.DivorcedError;
+    var div_pct = data.DivorcedPct;
 
     var trace1 = {
       type: "bar",
@@ -48,7 +48,7 @@ function buildPlot() {
       xaxis: {
         autotick: "true",
       },
-      
+
       yaxis: {
         autorange: true,
         type: "linear"
