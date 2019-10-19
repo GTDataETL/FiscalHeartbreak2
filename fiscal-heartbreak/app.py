@@ -86,7 +86,8 @@ def api_list():
     <hr>
     <br>
     <p><b>Marital Status:</b><a href='./api/MaritalStatus'>/api/MaritalStatus</a> -- returns JSON of Divorce Rates by County and Year<br>
-    Optional argument - <i>year</i> to return data for a single year. For example: <a href='./api/MaritalStatus/2016'>/api/MaritalStatus/2016</a></p>
+    Optional argument - year/<i><year></i> to return data for a single year. For example: <a href='./api/MaritalStatus/year/2016'>/api/MaritalStatus/year/2016</a>
+    Optional argument - county/<i><fips code></i> to return data for a single county. For example: <a href='./api/MaritalStatus/county/1005'>/api/MaritalStatus/county/1005</a></p>
     <p><b>Debt to Income Ratio (DTI):</b><a href='./api/DTI'>/api/DTI</a> -- returns JSON of DTI ratios by County and Year<br>
     Optional argument - <i>year</i> to return data for a single year. For example: <a href='./api/DTI/2016'>/api/DTI/2016</a></p>
     <p><b>Fiscal Heartbreak:</b><a href='./api/fiscal-heartbreak'>/api/fiscal-heartbreak</a> -- returns JSON of both Divorce Rates and DTI ratios by County and Year<br>
@@ -96,45 +97,69 @@ def api_list():
     </html>"""
 
 @app.route("/api/MaritalStatus")
-@app.route("/api/MaritalStatus/<arg_year>")
-def MaritalStatusAPI(arg_year=None):
+@app.route("/api/MaritalStatus/year/<arg_year>")
+@app.route("/api/MaritalStatus/county/<arg_county>")
+def MaritalStatusAPI(arg_year=None,arg_county=None):
     """Return a list of all marital status records
-       Optional Argument: Year for which data is requested"""
+       Optional Argument: Year for which data is requested
+       Optional Argument: County FIPS for which data is requested
+       """
 
     session = Session(engine)
     results = []
 
-    if (arg_year == None):
-        # Query all county marital status entries
-        results = session.query(FiscalHeartbreak_tbl).all()
-    else:
-        # Query county marital status in the selected year
-        results = session.query(FiscalHeartbreak_tbl).filter(FiscalHeartbreak_tbl.Year == arg_year).all()
-
     # initialize dict to return
     MaritalJSON = {}
+
+    if ((arg_year == None) and (arg_county == None)):
+        # Query all county marital status entries
+        results = session.query(FiscalHeartbreak_tbl).all()
+    elif(arg_county == None):
+        # Query county marital status in the selected year for all counties
+        results = session.query(FiscalHeartbreak_tbl).filter(FiscalHeartbreak_tbl.Year == arg_year).all()
+    else:
+        # Query county marital status in the selected county for all years
+        results = session.query(FiscalHeartbreak_tbl).filter(FiscalHeartbreak_tbl.FIPS == arg_county).all()
+
+        # reset MaritalJSON to have properties directly on root since we will only have 1 county
+        MaritalJSON = {
+            "FIPS": "",
+            "County": "",
+            "State": "",
+            "Years": [],
+            "DivorcedPct": [],
+            "DivorcedError": []
+        }
 
     for record in results:
 
         # DEBUG
     #    print(f'{record.Year} | {record.CountyName} | {record.StateName} | {record.DivorcedPct} | {record.DivorcedError}')
         
-        # if county not in output JSON yet, initialize new output record
-       # countyState = record.CountyName + "|" + record.StateName
-        if record.FIPS not in MaritalJSON.keys():
-            MaritalJSON[record.FIPS] = {
-                "FIPS": record.FIPS,
-                "County": record.CountyName,
-                "State": record.StateName,
-                "Years": [],
-                "DivorcedPct": [],
-                "DivorcedError": []
-            }
+        if (arg_county == None):
+            # if county not in output JSON yet, initialize new output record
+            if record.FIPS not in MaritalJSON.keys():
+                MaritalJSON[record.FIPS] = {
+                    "FIPS": record.FIPS,
+                    "County": record.CountyName,
+                    "State": record.StateName,
+                    "Years": [],
+                    "DivorcedPct": [],
+                    "DivorcedError": []
+                }
 
-        #now that we know we have an existing record in output JSON, add stats for current county and year
-        MaritalJSON[record.FIPS]["Years"].append(record.Year)
-        MaritalJSON[record.FIPS]["DivorcedPct"].append(record.DivorcedPct)
-        MaritalJSON[record.FIPS]["DivorcedError"].append(record.DivorcedError)
+            #now that we know we have an existing record in output JSON, add stats for current county and year
+            MaritalJSON[record.FIPS]["Years"].append(record.Year)
+            MaritalJSON[record.FIPS]["DivorcedPct"].append(record.DivorcedPct)
+            MaritalJSON[record.FIPS]["DivorcedError"].append(record.DivorcedError)
+        else:
+            # API was called for single county, just serve up the data directly without a new object by FIPS
+            MaritalJSON["FIPS"] = record.FIPS,
+            MaritalJSON["County"] = record.CountyName,
+            MaritalJSON["State"] = record.StateName,
+            MaritalJSON["Years"].append(record.Year)
+            MaritalJSON["DivorcedPct"].append(record.DivorcedPct)
+            MaritalJSON["DivorcedError"].append(record.DivorcedError)
 
     return jsonify(MaritalJSON)
 
