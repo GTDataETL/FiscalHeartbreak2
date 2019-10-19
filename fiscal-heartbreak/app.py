@@ -2,7 +2,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 import os
 import sys
 
@@ -62,16 +62,7 @@ def ab():
 @app.route("/")
 def home():
     """Homepage for Fiscal-Heartbreak Viz project"""
-    return """
-    <html>
-    <title>Fiscal Heartbreak Visualization</title>
-    <body>
-    <h1>Fiscal Heartbreak Visualization</h1>
-    <p>This page will be replaced with the wicked cool viz components
-    built by Andrew, Michael, and Joseph</p>
-    <p>To see the available API endpoints, navigate to <a href='./api'>/api</a>
-    </body>
-    </html>"""
+    return render_template("index.html")
 
 @app.route("/api")
 def api_list():
