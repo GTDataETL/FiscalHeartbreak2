@@ -25,11 +25,11 @@ function buildPlot() {
 
     // Grab values from the data json object to build the plots
     var county = data[1003].County;
-    var state = data[1003].StateName;
-    var year = data[1003].Year;
+    var state = data[1003].State;
+    var year = data[1003].Years;
     var FIPS = data[1003].FIPS;
-    var div_error = data[1003].Year, 0);
-    var div_pct = data[1003].Year, 1);
+    var div_error = data[1003].DivorcedError;
+    var div_pct = data[1003].DivorcedPct;
 
     var trace1 = {
       type: "bar",
@@ -46,7 +46,7 @@ function buildPlot() {
     var layout = {
       title: `County Divorce Rates`,
       xaxis: {
-        type: "date"
+        autotick: "true"
       },
       yaxis: {
         autorange: true,
