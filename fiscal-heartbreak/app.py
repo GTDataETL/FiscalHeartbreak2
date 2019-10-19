@@ -39,7 +39,26 @@ app = Flask(__name__)
 #################################################
 # Flask Routes
 #################################################
+@app.route("/ab")
+def ab():
+    return '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Divorce Plot</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="plot"></div>
+    <script src="../static/js/appAB.js"></script>
+</body>
+</html>
 
+    '''
 @app.route("/")
 def home():
     """Homepage for Fiscal-Heartbreak Viz project"""
