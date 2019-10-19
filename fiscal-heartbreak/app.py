@@ -107,14 +107,15 @@ def MaritalStatusAPI(arg_year=None):
                 "FIPS": record.FIPS,
                 "County": record.CountyName,
                 "State": record.StateName,
-                "Years": {}
+                "Years": [],
+                "DivorcedPct": [],
+                "DivorcedError": []
             }
 
-        #now that we know we have an existing record in output JSON, add stats for current year
-        MaritalJSON[record.FIPS]["Years"][record.Year] = {
-            "DivorcedPct": record.DivorcedPct,
-            "DivorcedError": record.DivorcedError
-        }
+        #now that we know we have an existing record in output JSON, add stats for current county and year
+        MaritalJSON[record.FIPS]["Years"].append(record.Year)
+        MaritalJSON[record.FIPS]["DivorcedPct"].append(record.DivorcedPct)
+        MaritalJSON[record.FIPS]["DivorcedError"].append(record.DivorcedError)
 
     return jsonify(MaritalJSON)
 
