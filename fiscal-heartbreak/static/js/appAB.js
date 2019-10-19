@@ -1,6 +1,6 @@
 
 /* global Plotly */
-var url =`/api/MaritalStatus/county/1005`;
+var url =`/api/fiscal-heartbreak/county/1003`;
 
 /**
  * Helper function to select stock data
@@ -30,6 +30,7 @@ function buildPlot() {
     var FIPS = data.FIPS;
     var div_error = data.DivorcedError;
     var div_pct = data.DivorcedPct;
+    var DtoI = data.DtoI;
 
     var trace1 = {
       type: "bar",
@@ -41,7 +42,17 @@ function buildPlot() {
       }
     };
 
-    var data = [trace1];
+    var trace2 = {
+      type: "bar",
+      name: DtoI,
+      x: year,
+      y: DtoI,
+      line: {
+        color: "#FF0000"
+      }
+    };
+
+    var data = [trace1, trace2];
 
     var layout = {
       title: `${county} Divorce Rates`,
