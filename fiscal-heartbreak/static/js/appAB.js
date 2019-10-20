@@ -1,6 +1,6 @@
 
 /* global Plotly */
-var url =`/api/MaritalStatus`;
+var url =`/api/fiscal-heartbreak`;
 
 /**
  * Helper function to select stock data
@@ -54,7 +54,7 @@ function buildPlot() {
       }
     };
 
-    Plotly.newPlot("plot", data, layout);
+    Plotly.newPlot("bar-chart", data, layout);
 
   });
 }
