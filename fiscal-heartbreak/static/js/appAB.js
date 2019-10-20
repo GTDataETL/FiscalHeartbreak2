@@ -1,6 +1,6 @@
 
 /* global Plotly */
-var url =`/api/fiscal-heartbreak`;
+var url =`/api/fiscal-heartbreak/county/1003`;
 
 /**
  * Helper function to select stock data
@@ -24,12 +24,13 @@ function buildPlot() {
   d3.json(url).then(function(data) {
 
     // Grab values from the data json object to build the plots
-    var county = data[1003].County;
-    var state = data[1003].State;
-    var year = data[1003].Years;
-    var FIPS = data[1003].FIPS;
-    var div_error = data[1003].DivorcedError;
-    var div_pct = data[1003].DivorcedPct;
+    var county = data.County;
+    var state = data.State;
+    var year = data.Years;
+    var FIPS = data.FIPS;
+    var div_error = data.DivorcedError;
+    var div_pct = data.DivorcedPct;
+    var DtoI = data.DtoI;
 
     var trace1 = {
       type: "bar",
@@ -41,16 +42,29 @@ function buildPlot() {
       }
     };
 
-    var data = [trace1];
+    var trace2 = {
+      type: "bar",
+      name: DtoI,
+      x: year,
+      y: DtoI,
+      line: {
+        color: "#FF0000"
+      }
+    };
+
+    var data = [trace1, trace2];
 
     var layout = {
-      title: `County Divorce Rates`,
+      title: `${county} Divorce Rates`,
+
       xaxis: {
-        autotick: "true"
+        autotick: false,
+        tick0: 2015,
+        dtick: 1,
       },
       yaxis: {
         autorange: true,
-        type: "linear"
+        type: "linear",
       }
     };
 
