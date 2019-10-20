@@ -68,8 +68,7 @@ function buildPlot() {
       }
     };
 
-    Plotly.newPlot("plot", data, layout);
-    
+    Plotly.newPlot("bar-chart", data, layout);
 
   });
 }

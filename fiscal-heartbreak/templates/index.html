@@ -15,9 +15,19 @@
 
   <h1>Fiscal Heartbreak</h1>
   <div class="container">
+    <div class="row" id="div-year-selector">
+      <select id="selYear" onchange="yearChanged(this.value)">
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017">2017</option>
+      </select>
+    </div>
     <div class="row" id="county-map">
     </div>
     <div class="row" id="scatter-plot">
+    </div>
+    <div class="row" id="div-county-selector">
+      <select id="selCounty" onchange="countyChanged(this.value)"></select>
     </div>
     <div class="row" id="bar-chart">
     </div>
@@ -25,4 +35,8 @@
   <p>To see the available API endpoints, navigate to <a href='./api'>/api</a></p>
 </body>
 
+<script src="static/js/appAB.js"></script>
+<script src="static/js/appMF.js"></script>
+
 </html>
+
