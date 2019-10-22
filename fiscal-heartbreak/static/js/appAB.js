@@ -73,8 +73,7 @@ function buildPlot(FIPS) {
     },
     };
 
-    Plotly.newPlot("plot", data, layout);
-    
+    Plotly.newPlot("bar-chart", data, layout);
 
   });
 }
