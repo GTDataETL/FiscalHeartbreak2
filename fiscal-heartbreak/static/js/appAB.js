@@ -1,6 +1,6 @@
 
 /* global Plotly */
-var url =`/api/fiscal-heartbreak/county/1003`;
+var url =`/api/fiscal-heartbreak/county/`;
 
 /**
  * Helper function to select stock data
@@ -20,15 +20,14 @@ function unpack(rows, index) {
   });
 }
 
-function buildPlot() {
-  d3.json(url).then(function(data) {
+function buildPlot(FIPS) {
+  var FIPS_url = url+FIPS;
+  d3.json(FIPS_url).then(function(data) {
 
     // Grab values from the data json object to build the plots
     var county = data.County;
     var state = data.State;
     var year = data.Years;
-    var FIPS = data.FIPS;
-    var div_error = data.DivorcedError;
     var div_pct = data.DivorcedPct;
     var DtoI = data.DtoI;
 
@@ -55,7 +54,7 @@ function buildPlot() {
     var data = [trace1, trace2];
 
     var layout = {
-      title: `${county} Divorce Rates`,
+      title: `${county}, ${state} - Divorce Rates and Debt to Income Ratio (2015-2017)`,
 
       xaxis: {
         autotick: false,
@@ -63,9 +62,15 @@ function buildPlot() {
         dtick: 1,
       },
       yaxis: {
+        title: 'Divorce %',
         autorange: true,
-        type: "linear",
-      }
+      },
+      yaxis2: {
+        title: 'Debt to Income Ratio',
+        autorange: true,
+        overlaying: 'y',
+        side: 'right'
+    },
     };
 
     Plotly.newPlot("plot", data, layout);
@@ -74,4 +79,4 @@ function buildPlot() {
   });
 }
 
-buildPlot();
+buildPlot("1005");
