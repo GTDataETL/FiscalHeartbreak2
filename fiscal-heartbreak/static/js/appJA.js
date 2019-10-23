@@ -1,8 +1,10 @@
-var url =`/api/fiscal-heartbreak/year/2017`;
+var scatter_url =`/api/fiscal-heartbreak/year/`;
 
 
-function buildScatter() {
-    d3.json(url).then(function(data) {
+function buildScatter(arg_year) {
+    api_url = scatter_url + arg_year;
+
+    d3.json(api_url).then(function(data) {
         
         
         var year = year;
@@ -48,11 +50,3 @@ function buildScatter() {
         Plotly.newPlot("scatter-plot", data, layout);
     });
 }
-
-buildScatter();
-
-// function pullStats() {
-//     d3.json(url).then(function(data) {
-        
-//     });
-// }
