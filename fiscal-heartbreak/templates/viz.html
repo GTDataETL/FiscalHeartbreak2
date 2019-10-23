@@ -69,8 +69,36 @@
               </div>
             </div>
           </div>
-          <div class="card">
-            <div class="card-body">
+          <div class="card d-flex">
+            <div class="card-body flex-fill">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-8 img-plot" id="scatter-plot" style="height:450px;">
+                  </div>
+                  <div class="col-md-4">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <td>Measure</td>
+                          <td>Value</td>
+                        </tr>
+                      </thead>
+                      <tr>
+                        <th scope="row">slope</td>
+                        <td id="slope"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">intercept</td>
+                        <td id="intercept"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">p-value</td>
+                        <td id="p-value"></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
               <div class="img-plot" id="scatter-plot">
               </div>
             </div>
