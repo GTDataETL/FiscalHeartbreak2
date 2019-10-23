@@ -39,26 +39,7 @@ app = Flask(__name__)
 #################################################
 # Flask Routes
 #################################################
-@app.route("/ab")
-def ab():
-    return '''
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Divorce Plot</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-</head>
-<body>
-    <div id="plot"></div>
-    <script src="../static/js/appAB.js"></script>
-</body>
-</html>
 
-    '''
 @app.route("/")
 def home():
     """Homepage for Fiscal-Heartbreak Viz project"""
@@ -67,20 +48,17 @@ def home():
 @app.route("/api")
 def api_list():
     """List all available api routes."""
-    return """
-    <html>
-    <title>Fiscal Heartbreak API</title>
-    <body>
-    <h1>Fiscal Heartbreak API</h1>
-    <p>The following API endpoints are available:</p>
-    <br>
-    <hr>
-    <br>
-    <p><b>Fiscal Heartbreak:</b><a href='./api/fiscal-heartbreak'>/api/fiscal-heartbreak</a> -- returns JSON of Divorce Rates and DTI ratios by County and Year<br>
-    Optional argument - year/<i>&lt;year&gt;</i> to return data for a single year. For example: <a href='./api/fiscal-heartbreak/year/2016'>/api/fiscal-heartbreak/year/2016</a><br>
-    Optional argument - county/<i>&lt;fips code&gt;</i> to return data for a single county. For example: <a href='./api/fiscal-heartbreak/county/1005'>/api/fiscal-heartbreak/county/1005</a></p>
-    </body>
-    </html>"""
+    return render_template("api.html")
+
+@app.route("/viz")
+def viz():
+    """Run the interactive visualizations (map, scatter, bar)"""
+    return render_template("viz.html")
+
+@app.route("/data")
+def data():
+    """Give background on the data sources used and the data prep required"""
+    return render_template("data.html")
 
 @app.route("/api/fiscal-heartbreak")
 @app.route("/api/fiscal-heartbreak/year/<arg_year>")
@@ -117,6 +95,9 @@ def FiscalHeartbreakAPI(arg_year=None,arg_county=None):
             "DivorcedError": [],
             "DtoI": []
         }
+
+    # now that we have our data, close the session
+    session.close()
 
     for record in results:
 

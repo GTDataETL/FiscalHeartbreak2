@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/> 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  
   <title>Fiscal Heartbreak</title>
 </head>
 
@@ -27,13 +29,13 @@
               <ul class="navbar-nav ml-auto">
               
               <!-- Home link -->
-              <li class="nav-item active">
-                  <a class="nav-link" href="./">Home <span class="sr-only">(current)</span></a>
+              <li class="nav-item">
+                  <a class="nav-link" href="./">Home </a>
               </li>
 
               <!-- Visualization -->
-              <li class="nav-item">
-                  <a class="nav-link" href="./viz">Visualization</a>
+              <li class="nav-item active">
+                  <a class="nav-link" href="./viz">Visualization <span class="sr-only">(current)</span></a>
               </li>
   
               <!-- Data link -->
@@ -49,26 +51,38 @@
               </ul>
           </div>
       </nav>
-    <!--  Main Content of Page using grid -->
-    <div class="container mt-5 mb-5" >
-        <div class="row">
 
-          <!-- Main column -->
-          <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title text-info">Summary:</h5>
-                  <p>blah blah blah</p>
-                  <br>
-                  <p>blah blah blah</p>
-                </div>
-            </div>
-          </div>
+  <div class="container">
+    <div class="row" id="div-year-selector">
+      <select id="selYear" onchange="yearChanged(this.value)">
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017">2017</option>
+      </select>
+    </div>
+    <div class="slider-single-item">
+      <div class="row img-plot" id="county-map">
+        <div class="col-md-12">
+          Text 1
         </div>
-      </div>  
-
+      </div>
+      <div class="row img-plot" id="scatter-plot">
+        <div class="col-md-12">
+            Text 2
+        </div>
+      </div>
+    </div>
+    <div class="slick-dots" width="100%"></div>
+    <div class="row" id="div-county-selector">
+      <select id="selCounty" onchange="countyChanged(this.value)"></select>
+    </div>
+    <div class="row" id="bar-chart">
+    </div>
+  </div>
 </body>
 
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="static/js/slick_scripts.js"></script>
 <script src="static/js/appAB.js"></script>
 <script src="static/js/appMF.js"></script>
 
