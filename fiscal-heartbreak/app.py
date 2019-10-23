@@ -75,6 +75,9 @@ def FiscalHeartbreakAPI(arg_year=None,arg_county=None):
     # initialize dict to return
     outputJSON = {}
 
+    #DEBUG
+    print(f'arg_year: {arg_year},  arg_county: {arg_county},   session: {session}')
+
     if ((arg_year == None) and (arg_county == None)):
         # Query all county marital status entries
         results = session.query(FiscalHeartbreak_tbl).all()
@@ -95,9 +98,6 @@ def FiscalHeartbreakAPI(arg_year=None,arg_county=None):
             "DivorcedError": [],
             "DtoI": []
         }
-
-    # now that we have our data, close the session
-    session.close()
 
     for record in results:
 
@@ -132,6 +132,9 @@ def FiscalHeartbreakAPI(arg_year=None,arg_county=None):
             outputJSON["DivorcedPct"].append(record.DivorcedPct)
             outputJSON["DivorcedError"].append(record.DivorcedError)
             outputJSON["DtoI"].append((record.DtoI_low + record.DtoI_high)/2)
+
+    # now that we have our data, close the session
+    session.close()
 
     return jsonify(outputJSON)
 
