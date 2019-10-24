@@ -37,6 +37,8 @@ function yearChanged (newYear) {
 
     // call function to refresh map with new year
     // PLACEHOLDER: call Mike H's function here passing in newYear as argument
+   // d3.select('#map-title').text(`${newYear} - Debt to Income Ratio`);
+    d3.select('#county-map').select('img').attr("src", `/static/img/country-${newYear}.png`);
 }
 
 // event handler for county selector
@@ -47,6 +49,33 @@ function countyChanged (newCountyFIPS) {
     buildPlot(newCountyFIPS);
 }
 
+// event handler for case study
+function toggleMap(textObject) {
+
+    var textElement = d3.select(textObject);
+    var textId = textElement.attr("id");
+    if (textId == "Idaho") {
+        // update text element link
+        textElement.text("Click for Country Map");
+        textElement.attr("id", "Country");
+
+        // update image
+        d3.select('#county-map').select('img').attr("src", `/static/img/idaho.png`);
+
+
+    } else {
+        // update text element link
+        textElement.text("Click for 'Idaho' Case Study");
+        textElement.attr("id", "Idaho");
+        
+        // get current year from selector
+        var selector = d3.select("#selYear");
+        var currentYear = selector.node().value;
+        
+        // update image
+        d3.select('#county-map').select('img').attr("src", `/static/img/country-${currentYear}.png`);
+    }
+}
 // setup code to be executed after the page is loaded
 window.addEventListener('load', function () {
     console.log('page loaded');

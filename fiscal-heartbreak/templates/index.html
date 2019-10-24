@@ -37,9 +37,9 @@
               </li>
   
               <!-- Data link -->
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                   <a class="nav-link" href="./data">Data Details</a>
-              </li>
+              </li> -->
 
               <!-- API link -->
               <li class="nav-item">
@@ -54,14 +54,82 @@
         <div class="row">
 
           <!-- Main column -->
-          <div class="col-md-12">
+          <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title text-info">Summary:</h5>
-                  <p>blah blah blah</p>
-                  <br>
-                  <p>blah blah blah</p>
+                  <h5 class="card-title text-info">Summary - Fiscal Heartbreak:</h5>
+                  <img src="static/img/fiscal-heartbreak2.png" class="float-left mr-3 mb-3 mt-3" width="100" height="auto">
+                  <p class="card-text">
+                      This project seeks to analyze the
+                      impact of US Fiscal Policy on US Family Households. More specifically, we examine
+                      the trends of Consumer Debt by county as compared to the trends of Divorce Rates by county.
+                  </p>
+                  <p>
+                      <b>Preliminary Hypothesis: </b><i>Higher levels of consumer debt (measured by debt-to-income
+                      ratio or “DTI”) lead to higher rates of divorce and lower rates of marriage.</i>
+                  </p>
+                  <p>In order to perform this analysis, we sourced marriage statistics by county for each of 3 years from the US Census ACS data
+                    (table S1201).  Reference: <a href="https://factfinder.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t">
+                      Census Data Link</a>
+                    In addition, we downloaded data of Household Debt compared to Household Income in the form of a Debt to Income Ratio (DTI) from 
+                    Federal Reserve data. Reference: <a href="https://www.federalreserve.gov/releases/z1/dataviz/household_debt/county/map/#state:all;year:2018">
+                      Federal Reserve Data Link</a>
+                  </p>
+                  <p>
+                      The following user acceptance tests were performed on the acquired data to ensure acceptable quality:
+                      <ul>
+                      <li><p><b>Debt-to-Income Ratio Boundaries: </b>ensured that no lower debt-to-income ratio bands exceeded upper debt-to-income ratio band in any given row in order to confirm data reliability and accuracy. This was confirmed by visualizing our debt-to-income ratio differential (upper-band minus lower-band) in ascending order.
+                      </p></li>
+                      <li><p><b>Sum of Marriage Statistics: </b>Made sure that the sum of overall marriage statistic percentages tied out to ~100% to ensure that data found in each record was complete and accurate. The extrema of the total percentages calculated ranged from 99.8% to 100.2%, which was identified as being caused by insignificant rounding adjustments within the original datasets.
+                       </p></li>
+                       </ul>
+                  </p>
+                  <p></p>
                 </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-info">Team Members:</h5>
+                  <p>
+                    Joseph Ayala<br>
+                    Andrew Behrman<br>
+                    Michael Fox<br>
+                    Michael Hankinson                  
+                  </p>
+                  <p>Additional credit goes to Sean Findlay for his contribution to the ETL effort.</p>
+                </div>
+            </div><br>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-info">Sample Visualizations:</h5><br>
+                <img src="/static/img/country-2015.png" width="300"><br>
+                <br>
+                <img src="/static/img/bar.png" width="300">
+              </div>
+            </div><br>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-info">Technology Used:</h5>
+                <p>
+                  Python<br>
+                  Javascript<br>
+                  HTML<br>
+                  CSS<br>
+                  Pandas (python)<br>
+                  Flask (python)<br>
+                  SqlAlchemy (python)<br>
+                  PostgreSQL<br>
+                  Plotly (js)<br>
+                  Plotly (python)<br>
+                  Slick Slider (js)<br>
+                  Heroku<br>
+                  Bootstrap<br>
+                  D3 (js)<br>
+                </p>
+                
+              </div>
             </div>
           </div>
         </div>
