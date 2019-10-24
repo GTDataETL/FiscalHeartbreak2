@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <title>Fiscal Heartbreak</title>
+</head>
+
+<body class="ml-3 mr-3">
+
+      <!-- Navbar with dark background -->
+      <nav class="navbar navbar-expand-lg navbar-dark">
+          <a class="navbar-brand bg-info" href="./">Fiscal Heartbreak</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse pr-5" id="navbarSupportedContent">
+  
+              <!-- ml-auto moves the menu items to the right side -->
+              <ul class="navbar-nav ml-auto">
+              
+              <!-- Home link -->
+              <li class="nav-item">
+                  <a class="nav-link" href="./">Home</a>
+              </li>
+
+              <!-- Visualization -->
+              <li class="nav-item">
+                  <a class="nav-link" href="./viz">Visualization</a>
+              </li>
+  
+              <!-- Data link -->
+              <!-- <li class="nav-item">
+                  <a class="nav-link" href="./data">Data Details</a>
+              </li> -->
+
+              <!-- API link -->
+              <li class="nav-item active">
+                  <a class="nav-link" href="./api">API Details <span class="sr-only">(current)</span></a>
+              </li>
+              
+              </ul>
+          </div>
+      </nav>
+
+    <!--  Main Content of Page using grid -->
+    <div class="container mt-5 mb-5" >
+        <div class="row">
+
+          <!-- Main column -->
+          <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-info">API Details:</h5>
+                  <p>The following API endpoints are available:</p>
+                  <br>
+                  <hr>
+                  <br>
+                  <p><b>Fiscal Heartbreak: </b><a href='./api/fiscal-heartbreak'>/api/fiscal-heartbreak</a> -- returns JSON of Divorce Rates and DTI ratios by County and Year<br>
+                  Optional argument - year/<i>&lt;year&gt;</i> to return data for a single year. For example: <a href='./api/fiscal-heartbreak/year/2016'>/api/fiscal-heartbreak/year/2016</a><br>
+                  Optional argument - county/<i>&lt;fips code&gt;</i> to return data for a single county. For example: <a href='./api/fiscal-heartbreak/county/1005'>/api/fiscal-heartbreak/county/1005</a>
+                  </p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
+

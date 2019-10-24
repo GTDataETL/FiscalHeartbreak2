@@ -1,76 +1,80 @@
 
 /* global Plotly */
-var url =`/api/fiscal-heartbreak/county/1003`;
+var url =`/api/fiscal-heartbreak/county/`;
 
-/**
- * Helper function to select stock data
- * Returns an array of values
- * @param {array} rows
- * @param {integer} index
- * index 0 - Date
- * index 1 - Open
- * index 2 - High
- * index 3 - Low
- * index 4 - Close
- * index 5 - Volume
- */
-function unpack(rows, index) {
-  return rows.map(function(row) {
-    return row[index];
-  });
-}
-
-function buildPlot() {
-  d3.json(url).then(function(data) {
+function buildPlot(FIPS) {
+  var FIPS_url = url+FIPS;
+  d3.json(FIPS_url).then(function(data) {
 
     // Grab values from the data json object to build the plots
     var county = data.County;
     var state = data.State;
     var year = data.Years;
-    var FIPS = data.FIPS;
-    var div_error = data.DivorcedError;
     var div_pct = data.DivorcedPct;
     var DtoI = data.DtoI;
 
     var trace1 = {
       type: "bar",
-      name: county,
+      name: "Divorce %",
       x: year,
       y: div_pct,
-      line: {
-        color: "#17BECF"
+      width: [.4,.4,.4],
+      offset: [-.3,-.3,-.3],
+      marker: {
+        color: "#17a2b8"
       }
     };
 
     var trace2 = {
       type: "bar",
-      name: DtoI,
+      name: "Debt to Income Ratio",
       x: year,
       y: DtoI,
-      line: {
-        color: "#FF0000"
-      }
+      width: [.4, .4, .4],
+      offset: [-.1, -.1, -.1],
+      marker: {
+        color: "#000000"
+      },
+      yaxis: "y2"
     };
 
     var data = [trace1, trace2];
 
     var layout = {
-      title: `${county} Divorce Rates`,
-
+      title: `Divorce Percentage vs. Debt to Income Ratio - ${county}, ${state}`,
+      titlefont: {
+        size: 24
+      },
+      font: {
+        family: 'Helvetica Neue, monospace',
+        size: 14,
+        color: '#000000'
+      },
       xaxis: {
+        title: "Year of Record",
         autotick: false,
         tick0: 2015,
         dtick: 1,
       },
+      //plot_bgcolor: "#efeee7",
       yaxis: {
-        autorange: true,
+        title: "Divorce Rate (%)",
+        range: [0,25],
         type: "linear",
-      }
+      },
+      yaxis2: {
+        title: "DtoI Ratio",
+        range: [0,4.5],
+        type: "linear",
+        overlaying: "y",
+        side: "right"
+      },
+      //paper_bgcolor: 'rgba(0,0,0,0)',
+
+      
     };
 
-    Plotly.newPlot("bar-chart", data, layout);
+    Plotly.newPlot("bar-chart", data, layout, {responsive: true});
 
   });
 }
-
-buildPlot();
