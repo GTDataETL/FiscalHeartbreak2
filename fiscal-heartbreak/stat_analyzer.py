@@ -1,12 +1,10 @@
 import numpy as np
 from scipy import stats
 from sqlalchemy.orm import Session
-# import api function from app.py to grab data
-from app import FiscalHeartbreak_tbl, engine
 
-session = Session(engine)
+def StatAnalyzer(year, FiscalHeartbreak_tbl, engine):
+    session = Session(engine)
 
-def StatAnalyzer(year):
     outputJSON = {}
   
     results = session.query(FiscalHeartbreak_tbl).filter(FiscalHeartbreak_tbl.Year == year).all()

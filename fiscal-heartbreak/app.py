@@ -1,7 +1,7 @@
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
-
+import stat_analyzer
 from flask import Flask, jsonify, render_template
 import os
 import sys
@@ -60,8 +60,8 @@ def StatRetrieval(year):
     """Run the statistical analysis"""
     # running function with variable year
     # should return a dictionary of stat numbers
-    import stat_analyzer
-    stat_dict = stat_analyzer.StatAnalyzer(year)
+
+    stat_dict = stat_analyzer.StatAnalyzer(year,FiscalHeartbreak_tbl, engine)
     return jsonify(stat_dict)
 
 @app.route("/data")
