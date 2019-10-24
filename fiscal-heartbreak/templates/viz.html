@@ -39,9 +39,9 @@
               </li>
   
               <!-- Data link -->
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                   <a class="nav-link" href="./data">Data Details</a>
-              </li>
+              </li> -->
 
               <!-- API link -->
               <li class="nav-item">
@@ -52,28 +52,39 @@
           </div>
       </nav>
 
+  <br>
   <div class="container">
-    <div class="row" id="div-year-selector">
-      <select id="selYear" onchange="yearChanged(this.value)">
-        <option value="2015">2015</option>
-        <option value="2016">2016</option>
-        <option value="2017">2017</option>
-      </select>
+    <div class="row">
+      <div class="col-md-12" id="div-year-selector">
+        <select id="selYear" onchange="yearChanged(this.value)">
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+        </select>
+      </div>
     </div>
     <div class="row">
-      <div class="slider-single-item col-md-12 center-block">
+        <div class="col-md-12" id="div-case-study">
+          <text class="btn btn-link info" onclick="toggleMap(this)" id="Idaho">Click for 'Idaho' Case Study</text>
+        </div>
+    </div>
+    <div class="row">
+      <div class="slider-single-item col-md-12">
           <div class="card">
+            <!-- <div class="card-title d-flex justify-content-center" id="map-title">
+              2015 - Debt to Income Ratio
+            </div> -->
             <div class="card-body">
               <div class="d-flex justify-content-center" id="county-map">
-                  <img src="/static/img/country.png" height="450">
+                  <img src="/static/img/country-2015.png" height="450">
               </div>
             </div>
           </div>
-          <div class="card d-flex">
-            <div class="card-body flex-fill">
+          <div class="card">
+            <div class="card-body">
               <div class="container">
                 <div class="row">
-                  <div class="col-md-8 img-plot" id="scatter-plot" style="height:450px;">
+                  <div class="col-md-8" id="scatter-plot" style="height:450px;">
                   </div>
                   <div class="col-md-4">
                     <table class="table">
@@ -99,14 +110,13 @@
                   </div>
                 </div>
               </div>
-              <div class="img-plot" id="scatter-plot">
+              <div id="scatter-plot">
               </div>
             </div>
           </div>
       </div>
-      <div class="container d-flex justify-content-center mb-2" id="slider-controls">
+      <div class="container d-flex justify-content-center" id="slider-controls">
         <div class="prev btn btn-link info">previous</div>
-        <div class="seperator"> | </div>
         <div class="next btn btn-link info">next</div>
       </div>
     </div>
@@ -118,7 +128,18 @@
     </div>
     <br>
     <div class="row">
-      <div class="col-md-12" id="bar-chart">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12" id="bar-chart">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

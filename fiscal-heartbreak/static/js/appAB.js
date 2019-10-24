@@ -3,13 +3,8 @@
 var url =`/api/fiscal-heartbreak/county/`;
 
 function buildPlot(FIPS) {
-
-  api_url = url+FIPS;
-
-function buildPlot(FIPS) {
   var FIPS_url = url+FIPS;
   d3.json(FIPS_url).then(function(data) {
-  d3.json(api_url).then(function(data) {
 
     // Grab values from the data json object to build the plots
     var county = data.County;
@@ -20,13 +15,11 @@ function buildPlot(FIPS) {
 
     var trace1 = {
       type: "bar",
-<<<<<<< Updated upstream
-      name: 'Divorce %',
-=======
       name: "Divorce %",
->>>>>>> Stashed changes
       x: year,
       y: div_pct,
+      width: [.4,.4,.4],
+      offset: [-.3,-.3,-.3],
       marker: {
         color: "#17a2b8"
       }
@@ -34,33 +27,21 @@ function buildPlot(FIPS) {
 
     var trace2 = {
       type: "bar",
-<<<<<<< Updated upstream
-      name: 'Debt to Income Ratio',
-=======
       name: "Debt to Income Ratio",
->>>>>>> Stashed changes
       x: year,
       y: DtoI,
+      width: [.4, .4, .4],
+      offset: [-.1, -.1, -.1],
       marker: {
         color: "#000000"
-<<<<<<< Updated upstream
       },
-      textposition: 'auto'
-=======
-      }
->>>>>>> Stashed changes
+      yaxis: "y2"
     };
 
     var data = [trace1, trace2];
 
     var layout = {
-<<<<<<< Updated upstream
-      title: `${county}, ${state} - Divorce Rates and Debt to Income Ratio (2015-2017)`,
-
-      xaxis: {
-        title: 'Year',
-=======
-      title: `${county}, ${state} - Divorce Percentage vs. Debt to Income Ratio`,
+      title: `Divorce Percentage vs. Debt to Income Ratio - ${county}, ${state}`,
       titlefont: {
         size: 24
       },
@@ -71,37 +52,29 @@ function buildPlot(FIPS) {
       },
       xaxis: {
         title: "Year of Record",
->>>>>>> Stashed changes
         autotick: false,
         tick0: 2015,
         dtick: 1,
       },
-      plot_bgcolor: "#efeee7",
+      //plot_bgcolor: "#efeee7",
       yaxis: {
-<<<<<<< Updated upstream
-        title: 'Divorce %',
-        autorange: true,
-      },
-      yaxis2: {
-        title: "Debt to Income Ratio",
-        overlaying: "y",
-        side: "right",
-        range: true,
-        anchor: "x",
-      },
-=======
-        title: "Divorce Rate (%) vs. DtoI Ratio",
-        autorange: true,
+        title: "Divorce Rate (%)",
+        range: [0,25],
         type: "linear",
       },
-      paper_bgcolor: 'rgba(0,0,0,0)',
+      yaxis2: {
+        title: "DtoI Ratio",
+        range: [0,4.5],
+        type: "linear",
+        overlaying: "y",
+        side: "right"
+      },
+      //paper_bgcolor: 'rgba(0,0,0,0)',
 
       
->>>>>>> Stashed changes
     };
 
     Plotly.newPlot("bar-chart", data, layout, {responsive: true});
 
   });
-}
 }

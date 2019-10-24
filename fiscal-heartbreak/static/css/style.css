@@ -6,10 +6,6 @@ p {
     font-size: 14px;
 }
 
-.slick-arrow {
-    margin: auto;
-    padding: 20;
-}
 
 .navbar-dark {
     padding-left: 0px;
@@ -26,4 +22,10 @@ p {
 
 .border {
     border-width:3px !important;
+}
+
+#map-title {
+    font-family: 'Helvetica Neue, monospace', Arial, sans-serif;
+    font-size: 24px;
+    color: '#000000';
 }
