@@ -88,4 +88,3 @@ function buildScatter(arg_year) {
     });
 }
 
-buildScatter();
