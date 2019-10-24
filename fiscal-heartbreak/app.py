@@ -1,10 +1,11 @@
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
-import stat_analyzer
 from flask import Flask, jsonify, render_template
 import os
 import sys
+import numpy as np
+from scipy import stats
 
 
 #################################################
@@ -61,8 +62,27 @@ def StatRetrieval(year):
     # running function with variable year
     # should return a dictionary of stat numbers
 
-    stat_dict = stat_analyzer.StatAnalyzer(year,FiscalHeartbreak_tbl, engine)
-    return jsonify(stat_dict)
+    session = Session(engine)
+
+    outputJSON = {}
+  
+    results = session.query(FiscalHeartbreak_tbl).filter(FiscalHeartbreak_tbl.Year == year).all()
+
+    diRatio = [((record.DtoI_low + record.DtoI_high)/2) for record in results]
+    divPct = [record.DivorcedPct for record in results]
+
+    # use numpy and stats to find calculations
+    x = np.array(diRatio)
+    y = np.array(divPct)
+
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+
+    # store results into dictionary and return
+    stat_summary = {"slope":slope, "intercept":intercept, "R_squared":r_value**2, "P_value":p_value}
+
+    session.close()
+    
+    return stat_summary
 
 @app.route("/data")
 def data():
