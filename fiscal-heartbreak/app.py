@@ -5,14 +5,12 @@ from sqlalchemy import create_engine, func
 from flask import Flask, jsonify, render_template
 import os
 import sys
-import stat_analyzer
 
 
 #################################################
 # Database Reflection
 #################################################
 print("Starting...")
-print(f"DATABASE_URL: {os.environ.get('DATABASE_URL', '') }")
 print(f"Database URL: {os.environ.get('DATABASE_URL', '') or 'sqlite:///../db/fiscal-heartbreak-slim.sqlite'}")
 sys.stdout.flush()
 
@@ -62,6 +60,7 @@ def StatRetrieval(year):
     """Run the statistical analysis"""
     # running function with variable year
     # should return a dictionary of stat numbers
+    import stat_analyzer
     stat_dict = stat_analyzer.StatAnalyzer(year)
     return jsonify(stat_dict)
 
