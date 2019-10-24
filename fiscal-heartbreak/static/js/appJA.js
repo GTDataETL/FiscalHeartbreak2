@@ -55,11 +55,11 @@ function buildScatter(arg_year) {
                 hoverdistance:"1",
                 xaxis: {
                     range: [0, 4],
-                    title: "Divorce Rate (%)"
+                    title: "Debt-to-Income Ratio"
                 },
                 yaxis: {
                     range: [0, 26],
-                    title: "Debt-to-Income Ratio"
+                    title: "Divorce Rate (%)"
                 },
                 title:"Selected Year: "+arg_year
             };
