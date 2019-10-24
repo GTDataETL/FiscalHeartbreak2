@@ -56,12 +56,14 @@ def viz():
     """Run the interactive visualizations (map, scatter, bar)"""
     return render_template("viz.html")
 
-# @app.route("/stats/<year>")
-# def StatRetrieval(year):
-#     """Run the statistical analysis"""
-#     #dataset = FiscalHeartbreakAPI(arg_year=year)
-#     stat_dict = stat_analyzer.StatAnalyzer(year)
-#     return stat_dict
+ # imported stat_analyzer.py above
+@app.route("/stats/<year>")
+def StatRetrieval(year):
+    """Run the statistical analysis"""
+    # running function with variable year
+    # should return a dictionary of stat numbers
+    stat_dict = stat_analyzer.StatAnalyzer(year)
+    return jsonify(stat_dict)
 
 @app.route("/data")
 def data():
