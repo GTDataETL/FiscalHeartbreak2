@@ -2,27 +2,14 @@
 /* global Plotly */
 var url =`/api/fiscal-heartbreak/county/`;
 
-/**
- * Helper function to select stock data
- * Returns an array of values
- * @param {array} rows
- * @param {integer} index
- * index 0 - Date
- * index 1 - Open
- * index 2 - High
- * index 3 - Low
- * index 4 - Close
- * index 5 - Volume
- */
-function unpack(rows, index) {
-  return rows.map(function(row) {
-    return row[index];
-  });
-}
+function buildPlot(arg_FIPS) {
+
+  api_url = url+arg_FIPS;
 
 function buildPlot(FIPS) {
   var FIPS_url = url+FIPS;
   d3.json(FIPS_url).then(function(data) {
+  d3.json(api_url).then(function(data) {
 
     // Grab values from the data json object to build the plots
     var county = data.County;
@@ -79,4 +66,5 @@ function buildPlot(FIPS) {
     Plotly.newPlot("bar-chart", data, layout, {responsive: true});
 
   });
+}
 }

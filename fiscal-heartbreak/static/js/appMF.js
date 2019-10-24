@@ -23,7 +23,8 @@ function init() {
       });
   
       // Use the first sample from the list to build the initial plots
-      buildPlot(counties[firstFIPS]);
+      buildPlot(firstFIPS);
+      buildScatter(2015);
     });
   }
 
@@ -32,7 +33,7 @@ function yearChanged (newYear) {
     console.log(`New Year Selected: ${newYear}`);
 
     // call function to refresh scatter plot with new year
-    // PLACEHOLDER: call Joseph's function here passing in newYear as argument
+    buildScatter(newYear);
 
     // call function to refresh map with new year
     // PLACEHOLDER: call Mike H's function here passing in newYear as argument
@@ -46,5 +47,10 @@ function countyChanged (newCountyFIPS) {
     buildPlot(newCountyFIPS);
 }
 
-// initialize the page
-init();
+// setup code to be executed after the page is loaded
+window.addEventListener('load', function () {
+    console.log('page loaded');
+
+    // initialize the page
+    init();
+  });
