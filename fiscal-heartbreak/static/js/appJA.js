@@ -33,7 +33,10 @@ function buildScatter(arg_year) {
                 mode: "markers",
                 type: "scatter",
                 text: countyNames,
-                marker: {size: 12},
+                marker: {
+                    size: 12,
+                    color: "#17a2b8"
+                },
                 name: "Counties"
             };
     
@@ -51,10 +54,12 @@ function buildScatter(arg_year) {
                 hovermode:"closest",
                 hoverdistance:"1",
                 xaxis: {
-                    range: [0, 4]
+                    range: [0, 4],
+                    title: "Debt-to-Income Ratio"
                 },
                 yaxis: {
-                    range: [0, 26]
+                    range: [0, 26],
+                    title: "Divorce Rate (%)"
                 },
                 title:"Selected Year: "+arg_year
             };
