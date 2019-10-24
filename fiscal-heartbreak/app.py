@@ -5,6 +5,7 @@ from sqlalchemy import create_engine, func
 from flask import Flask, jsonify, render_template
 import os
 import sys
+import stat_analyzer
 
 
 #################################################
@@ -54,6 +55,15 @@ def api_list():
 def viz():
     """Run the interactive visualizations (map, scatter, bar)"""
     return render_template("viz.html")
+
+ # imported stat_analyzer.py above
+@app.route("/stats/<year>")
+def StatRetrieval(year):
+    """Run the statistical analysis"""
+    # running function with variable year
+    # should return a dictionary of stat numbers
+    stat_dict = stat_analyzer.StatAnalyzer(year)
+    return jsonify(stat_dict)
 
 @app.route("/data")
 def data():
