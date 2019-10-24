@@ -33,22 +33,23 @@ function buildPlot(FIPS) {
 
     var trace1 = {
       type: "bar",
-      name: county,
+      name: 'Divorce %',
       x: year,
       y: div_pct,
-      line: {
-        color: "#17BECF"
+      marker: {
+        color: "#17a2b8"
       }
     };
 
     var trace2 = {
       type: "bar",
-      name: DtoI,
+      name: 'Debt to Income Ratio',
       x: year,
       y: DtoI,
-      line: {
-        color: "#FF0000"
-      }
+      marker: {
+        color: "#000000"
+      },
+      textposition: 'auto'
     };
 
     var data = [trace1, trace2];
@@ -57,6 +58,7 @@ function buildPlot(FIPS) {
       title: `${county}, ${state} - Divorce Rates and Debt to Income Ratio (2015-2017)`,
 
       xaxis: {
+        title: 'Year',
         autotick: false,
         tick0: 2015,
         dtick: 1,
@@ -66,16 +68,15 @@ function buildPlot(FIPS) {
         autorange: true,
       },
       yaxis2: {
-        title: 'Debt to Income Ratio',
-        autorange: true,
-        overlaying: 'y',
-        side: 'right'
-    },
+        title: "Debt to Income Ratio",
+        overlaying: "y",
+        side: "right",
+        range: true,
+        anchor: "x",
+      },
     };
 
-    Plotly.newPlot("bar-chart", data, layout);
+    Plotly.newPlot("bar-chart", data, layout, {responsive: true});
 
   });
 }
-
-buildPlot("1005");
