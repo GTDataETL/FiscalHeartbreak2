@@ -26,6 +26,7 @@ function buildScatter(arg_year) {
             d3.select('#slope').html(slope);
             d3.select('#intercept').html(intercept);
             d3.select('#p-value').html(data.P_value);
+            d3.select('#r-squared').html(data.R_squared);
         
             var trace1 = {
                 x: diRatio,

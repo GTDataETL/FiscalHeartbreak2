@@ -78,7 +78,8 @@ def StatRetrieval(year):
     slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
 
     # store results into dictionary and return
-    stat_summary = {"slope":slope, "intercept":intercept, "R_squared":r_value**2, "P_value":p_value}
+    stat_summary = {"slope":slope, "intercept":intercept, "R_value": r_value, "R_squared":r_value**2, "P_value":p_value}
+    print(f'r_value: {r_value}')
 
     session.close()
     
